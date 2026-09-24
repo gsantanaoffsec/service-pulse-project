@@ -1,0 +1,1678 @@
+{
+  "info": {
+    "_postman_id": "b5acdcf2-661e-4e0c-a398-79a28f2af001",
+    "name": "ServicePulse API - Validação completa",
+    "description": "Collection organizada para validar CRUD, filtros, paginação, schemas, activitiesCount, erros e cascade da API ServicePulse.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Tickets - Consulta",
+      "item": [
+        {
+          "name": "Listar tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Paginação - página 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?_page=1&_limit=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?_page=1&_limit=2"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Paginação - página 2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?_page=2&_limit=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?_page=2&_limit=2"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Busca por sistema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?q=sistema",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?q=sistema"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtro por status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?status=open",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?status=open"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtro por categoria",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?categoria=Hardware",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?categoria=Hardware"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtro por prioridade",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?prioridade=critical",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?prioridade=critical"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtros combinados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?status=open&prioridade=medium",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?status=open&prioridade=medium"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 - Tickets - CRUD",
+      "item": [
+        {
+          "name": "Criar ticket e salvar ticketId",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"open\",\n  \"solicitante\": \"Gabriel Santana\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', function () { pm.response.to.have.status(201) })",
+                  "const response = pm.response.json()",
+                  "if (response.ticket && response.ticket.idticket) {",
+                  "  pm.environment.set('ticketId', response.ticket.idticket)",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Detalhar ticket",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Atualizar para in_progress",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"in_progress\",\n  \"solicitante\": \"Gabriel Santana\",\n  \"responsavel\": \"Analista de suporte\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Atualizar para resolved",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"resolved\",\n  \"solicitante\": \"Gabriel Santana\",\n  \"responsavel\": \"Analista de suporte\",\n  \"tipoResolucao\": \"fixed\",\n  \"resumoResolucao\": \"As permissões do usuário foram corrigidas.\",\n  \"resolvedAt\": \"2026-09-24T18:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Atualizar para closed",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"closed\",\n  \"solicitante\": \"Gabriel Santana\",\n  \"responsavel\": \"Analista de suporte\",\n  \"tipoResolucao\": \"fixed\",\n  \"resumoResolucao\": \"As permissões do usuário foram corrigidas.\",\n  \"resolvedAt\": \"2026-09-24T18:00:00.000Z\",\n  \"closedAt\": \"2026-09-24T19:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 - Tickets - Validações",
+      "item": [
+        {
+          "name": "ID malformado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/id-invalido",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "id-invalido"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ticket inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{nonexistentTicketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{nonexistentTicketId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Título curto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Erro\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"open\",\n  \"solicitante\": \"Gabriel Santana\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Descrição curta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"Descrição curta\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"open\",\n  \"solicitante\": \"Gabriel Santana\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "in_progress sem responsável",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"in_progress\",\n  \"solicitante\": \"Gabriel Santana\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "resolved sem resolução",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"resolved\",\n  \"solicitante\": \"Gabriel Santana\",\n  \"responsavel\": \"Analista de suporte\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "closed sem closedAt",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"closed\",\n  \"solicitante\": \"Gabriel Santana\",\n  \"responsavel\": \"Analista de suporte\",\n  \"tipoResolucao\": \"fixed\",\n  \"resumoResolucao\": \"As permissões do usuário foram corrigidas.\",\n  \"resolvedAt\": \"2026-09-24T18:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "closedAt anterior ao resolvedAt",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Falha no acesso ao sistema\",\n  \"descricao\": \"O usuário não consegue acessar o sistema interno da empresa.\",\n  \"categoria\": \"Access\",\n  \"prioridade\": \"high\",\n  \"status\": \"closed\",\n  \"solicitante\": \"Gabriel Santana\",\n  \"responsavel\": \"Analista de suporte\",\n  \"tipoResolucao\": \"fixed\",\n  \"resumoResolucao\": \"As permissões do usuário foram corrigidas.\",\n  \"resolvedAt\": \"2026-09-24T18:00:00.000Z\",\n  \"closedAt\": \"2026-09-24T17:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Query _page inválida",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?_page=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?_page=0"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Query _limit inválida",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?_limit=101",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?_limit=101"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Status inválido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets?status=invalid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets?status=invalid"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 - Activities - CRUD e filtros",
+      "item": [
+        {
+          "name": "Criar activity e salvar activityId",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', function () { pm.response.to.have.status(201) })",
+                  "const response = pm.response.json()",
+                  "if (response.ticketActivity && response.ticketActivity.idactivity) {",
+                  "  pm.environment.set('activityId', response.ticketActivity.idactivity)",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Listar activities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrar por tipo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities?tipo=comment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities?tipo=comment"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrar por autor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities?autor=Gabriel%20Santana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities?autor=Gabriel%20Santana"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Paginar activities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities?_page=1&_limit=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities?_page=1&_limit=5"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Detalhar activity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{activityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{activityId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Atualizar activity",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{activityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{activityId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"action\",\n  \"descricao\": \"As permissões de acesso foram corrigidas e verificadas.\",\n  \"autor\": \"Analista de suporte\",\n  \"tempoGastoMinutos\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Conferir activitiesCount",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200) })"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "05 - Activities - Validações",
+      "item": [
+        {
+          "name": "Criar em ticket inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{nonexistentTicketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{nonexistentTicketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Descrição curta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"Curta\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Autor curto",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"G\",\n  \"tempoGastoMinutos\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tempo negativo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": -1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tempo maior que 1440",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": 1441\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tipo inválido na query",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities?tipo=invalid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities?tipo=invalid"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 400', function () { pm.response.to.have.status(400) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Activity inexistente - GET",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{nonexistentActivityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{nonexistentActivityId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Activity inexistente - PUT",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{nonexistentActivityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{nonexistentActivityId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Activity inexistente - DELETE",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{nonexistentActivityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{nonexistentActivityId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "06 - Exclusão e cascade - executar por último",
+      "item": [
+        {
+          "name": "Excluir activity",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{activityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{activityId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 204', function () { pm.response.to.have.status(204) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Confirmar activity excluída",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{activityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{activityId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Criar activity para cascade",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}/activities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}",
+                "activities"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"comment\",\n  \"descricao\": \"O usuário confirmou novos detalhes sobre o problema.\",\n  \"autor\": \"Gabriel Santana\",\n  \"tempoGastoMinutos\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', function () { pm.response.to.have.status(201) })",
+                  "const response = pm.response.json()",
+                  "if (response.ticketActivity && response.ticketActivity.idactivity) {",
+                  "  pm.environment.set('activityId', response.ticketActivity.idactivity)",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Excluir ticket",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 204', function () { pm.response.to.have.status(204) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Confirmar ticket excluído",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tickets/{{ticketId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tickets",
+                "{{ticketId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Confirmar cascade da activity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{activityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{activityId}}"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 404', function () { pm.response.to.have.status(404) })"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
