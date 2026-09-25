@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+
+  --color-white: #ffffff;
+  --color-background: #f5f7fb;
+  --color-surface-subtle: #f1f4f8;
+  --color-skeleton: #e9edf3;
+  --color-border: #dfe5ec;
+  --color-border-strong: #b8c2cf;
+
+  --color-text: #172033;
+  --color-text-muted: #647084;
+  --color-text-soft: #929cad;
+
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-soft: #eeedff;
+
+  --color-danger: #dc3545;
+  --color-danger-strong: #b91c2c;
+  --color-danger-soft: #fff0f1;
+  --color-overlay: rgba(15, 23, 42, 0.48);
+
+  --color-status-open: #2563eb;
+  --color-status-open-soft: #eaf2ff;
+  --color-status-triage: #a16207;
+  --color-status-triage-soft: #fff7db;
+  --color-status-progress: #7c3aed;
+  --color-status-progress-soft: #f2ebff;
+  --color-status-resolved: #087a55;
+  --color-status-resolved-soft: #e3f8ef;
+  --color-status-closed: #526071;
+  --color-status-closed-soft: #edf0f4;
+
+  --color-priority-low: #0f766e;
+  --color-priority-low-soft: #e1f7f3;
+  --color-priority-medium: #1d5ea8;
+  --color-priority-medium-soft: #e8f2ff;
+  --color-priority-high: #b45309;
+  --color-priority-high-soft: #fff0dc;
+  --color-priority-critical: #c52135;
+  --color-priority-critical-soft: #ffeaed;
+
+  --color-activity-comment: #315f9c;
+  --color-activity-comment-soft: #e8f1fc;
+  --color-activity-diagnosis: #8b5b10;
+  --color-activity-diagnosis-soft: #fff3dc;
+  --color-activity-action: #087a55;
+  --color-activity-action-soft: #e3f8ef;
+
+  --font-sans: 'DM Sans', sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.03), 0 8px 24px rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 12px 32px rgba(15, 23, 42, 0.09);
+  --shadow-button: 0 5px 14px rgba(79, 70, 229, 0.2);
+  --shadow-floating: 0 14px 34px rgba(79, 70, 229, 0.3);
+  --shadow-modal: 0 24px 70px rgba(15, 23, 42, 0.22);
+
+  --container-content: 1180px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  select {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+}
